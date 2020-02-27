@@ -20,6 +20,9 @@ public class BTest{
 
 class BTree{
 	private BNode root;
+	public static final int IN = 997;
+	public static final int PRE = 998;
+	public static final int POST = 999;
 		
 	public BTree(){
 		root = null;
@@ -83,22 +86,42 @@ class BTree{
 		}
 	}
 	
-	@Override
-	public String toString(){
-		String ans = stringify(root);
-		if(ans!=""){
-			ans = ans.substring(0,ans.length()-2);
+	public String display(){
+		return display(BTree.IN);
+	}
+	
+	public String display(int mode){
+		String ans = display(mode, root);
+		if(ans != ""){
+			ans = ans.substring(0, ans.length()-2);
 		}
 		return "{"+ans+"}";
 	}
-
-	public String stringify(BNode branch){		
+	
+	public String display(int mode, BNode branch){
 		if(branch != null){
-			return stringify(branch.getLeft()) + 
+			if(mode == BTree.IN){
+				return display(mode, branch.getLeft()) + 
 				   branch.getVal() + ", " +
-				   stringify(branch.getRight());
+				   display(mode, branch.getRight());
+			}
+			else if(mode == BTree.PRE){
+				return branch.getVal() + 
+					display(mode, branch.getLeft()) + "," + 
+				  	display(mode, branch.getRight());
+			}
+			else if(mode == BTree.POST){
+				return display(mode, branch.getLeft()) + 
+				   display(mode, branch.getRight()) + "," +
+				   branch.getVal();
+			}
 		}
 		return "";
+	}
+	
+	@Override
+	public String toString(){
+		return display();
 	}
 }
 
