@@ -192,21 +192,15 @@ class BTree{
      */
     public int depth(int n, BNode o, int d){
         if(o == null){
-            //System.out.println(d);
-
             return -1;
         }
         if(n == o.getVal()){
             return d;
         }
         else if(n > o.getVal()){
-            //System.out.println("right");
-            //System.out.println(o.getVal());
             return depth(n, o.getRight(), d+1);
         }
         else {
-            //System.out.println("left");
-
             return depth(n, o.getLeft(), d+1);
         }
     }
@@ -256,6 +250,7 @@ class BTree{
             return h;
         }
 
+        // return the max height of the two subtrees
         return Math.max(height(branch.getLeft(), h+1), height(branch.getRight(), h+1));
     }
 
@@ -279,6 +274,7 @@ class BTree{
             return h;
         }
 
+        // return the min height of the two sub trees
         return Math.min(minHeight(branch.getLeft(), h+1), minHeight(branch.getRight(), h+1));
     }
 
